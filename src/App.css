@@ -1,0 +1,287 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Cabeçalho */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white; /* Fundo branco */
+  color: #333; /* Texto escuro para contraste */
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve para separar o cabeçalho */
+}
+
+.header .logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  max-width: 150px; /* Define um tamanho máximo para a logo */
+  height: auto; /* Mantém a proporção */
+  margin-right: 1rem; /* Adiciona um espaçamento à direita da logo */
+}
+
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-menu a {
+  color: #243e6e; /* Links em azul */
+  transition: color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-menu a:hover {
+  text-decoration: underline;
+  color: #0056b3; /* Cor mais escura ao passar o mouse */
+  transform: scale(1.1); /* Efeito de zoom leve */
+}
+
+/* Seção Inicial */
+.hero-section {
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  padding: 0rem 2rem;
+  background-color: white; /* Fundo branco */
+  color: #333; /* Texto escuro */
+  min-height: 100vh; /* Garante que a seção ocupe toda a altura da tela */
+}
+
+.hero-content {
+  display: flex;
+  gap: 2rem;
+  max-width: 1200px; /* Limita a largura máxima */
+  margin: 0 auto; /* Centraliza o conteúdo */
+  align-items: center; /* Centraliza verticalmente o texto e a imagem */
+}
+
+.text-content {
+  flex: 1; /* Ocupa metade do espaço disponível */
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+.mascot-image {
+  flex: 1; /* Ocupa metade do espaço disponível */
+  max-width: 500px; /* Define um tamanho máximo para a imagem */
+  height: auto; /* Mantém a proporção */
+  border-radius: 0; /* Remove bordas */
+  box-shadow: none; /* Remove sombra */
+}
+
+.text-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #243e6e; /* Título em azul */
+}
+
+.text-content p {
+  font-size: 1.2rem;
+  color: #555; /* Texto mais suave */
+}
+
+/* Seção de Materiais */
+.materials-section {
+  padding: 2rem;
+  text-align: center;
+  background-color: #f9f9f9; /* Fundo cinza claro para contraste */
+}
+
+.materials-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #243e6e; /* Título em azul */
+}
+
+.materials-section h6 {
+  margin-top: -17px;
+  color: #ff6666; /* Título em azul */
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Estilização dos cards */
+.card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+  max-width: 200px; /* Largura máxima para os cards */
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.person-avatar {
+  width: 80px; /* Tamanho do avatar */
+  height: 80px; /* Altura do avatar */
+  border-radius: 50%; /* Deixa a imagem circular */
+  object-fit: cover; /* Garante que a imagem preencha o círculo sem distorções */
+  margin-bottom: 1rem; /* Espaçamento entre a imagem e o nome */
+}
+
+.card h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #555; /* Cor do título do ano */
+}
+
+.card h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: #243e6e; /* Cor do nome */
+}
+
+.card a {
+  display: inline-block;
+  background-color: #243e6e;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.card a:hover {
+  background-color: #0056b3;
+}
+
+/* Rodapé */
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 2rem;
+  text-align: center;
+}
+
+.partners h3,
+.social-media h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Estilização dos logos dos parceiros */
+.logos {
+  display: flex;
+  justify-content: center;
+  gap: 2rem; /* Espaçamento entre as logos */
+  margin-bottom: 2rem;
+}
+
+.logos img {
+  height: 300px; /* Altura fixa para todas as logos */
+  width: auto; /* Largura automática para manter a proporção */
+  object-fit: contain; /* Garante que a logo não seja distorcida */
+  border-radius: 10px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.social-icons a {
+  color: white;
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #007bff;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .hero-section {
+    flex-direction: column; /* Empilha os elementos em telas menores */
+    text-align: center; /* Centraliza o texto */
+  }
+
+  .text-content,
+  .mascot-image {
+    flex: none; /* Desativa o comportamento flexível */
+    width: 100%; /* Faz com que ambos ocupem toda a largura */
+    max-width: 100%; /* Garante que não ultrapassem a largura da tela */
+  }
+
+  .text-content h1 {
+    font-size: 2rem; /* Reduz o tamanho do título para telas menores */
+  }
+
+  .text-content p {
+    font-size: 1rem; /* Reduz o tamanho do parágrafo para telas menores */
+  }
+
+  .mascot-image {
+    max-width: 300px; /* Reduz o tamanho máximo da imagem para telas menores */
+    margin: 0 auto; /* Centraliza a imagem horizontalmente */
+  }
+  .hero-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .logo-image {
+    max-width: 120px; /* Reduz o tamanho da logo para telas menores */
+  }
+
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .logos {
+    flex-direction: column; /* Empilha as logos em telas menores */
+    align-items: center; /* Centraliza as logos verticalmente */
+  }
+
+  .logos img {
+    height: 200px; /* Altura fixa para todas as logos */
+    width: auto; /* Largura automática para manter a proporção */
+  }
+}
+
+/* Animação de fade-in */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.9s ease, transform 1.9s ease;
+}
+
+.fade-in.active {
+  opacity: 1;
+  transform: translateY(0);
+}

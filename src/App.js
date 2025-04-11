@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "./App.css";
 import mascotImage from "./assets/mascot.png"; // Importação da imagem
 import logoMeta from "./assets/logo-meta.PNG"; // Importação da logo
@@ -8,6 +8,11 @@ import person2 from "./assets/person2.png"; // Importação da imagem do 2º Ano
 import person3 from "./assets/person3.png"; // Importação da imagem do 3º Ano
 import person4 from "./assets/person4.png"; // Importação da imagem do 4º Ano
 import person5 from "./assets/person5.png"; // Importação da imagem do 5º Ano
+import review1 from "./assets/person3.png"; // Imagem de avaliação 1
+import review2 from "./assets/person3.png"; // Imagem de avaliação 2
+import review3 from "./assets/person3.png"; // Imagem de avaliação 3
+import review4 from "./assets/person3.png"; // Imagem de avaliação 4
+import review5 from "./assets/person3.png"; // Imagem de avaliação 5
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebook,
@@ -16,9 +21,9 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 
 function FadeInWhenVisible({ children }) {
-  const ref = useRef(null);
+  const ref = React.useRef(null);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -128,7 +133,6 @@ function App() {
             <div className="card">
               <img src={person4} alt="Pessoa 4" className="person-avatar" />
               <h3>Maria José</h3>
-              <h6>Português</h6>
               <h4>4º/5º Ano</h4>
               <a
                 href="https://drive.google.com/drive/folders/1p4mLZLNEWNi0IKAXJT10g-i5tSdUxYJK?usp=sharing"
@@ -141,7 +145,6 @@ function App() {
             <div className="card">
               <img src={person5} alt="Pessoa 5" className="person-avatar" />
               <h3>Ian Ribeiro</h3>
-              <h6>Matemática</h6>
               <h4>4º/5º Ano</h4>
               <a
                 href="https://drive.google.com/drive/folders/1nNcrvfPaJLInuH2LiY8fu8MxzifVEPKo?usp=sharing"
@@ -151,6 +154,91 @@ function App() {
                 Acessar Material
               </a>
             </div>
+          </div>
+        </section>
+      </FadeInWhenVisible>
+
+      {/* Seção de Avaliações */}
+      <FadeInWhenVisible>
+        <section id="avaliacoes" className="reviews-section">
+          <h2>Avaliações</h2>
+          <div className="cards-container">
+            <div className="review-card">
+              <img src={review1} alt="Avaliação 1" className="person-avatar" />
+              <h3>João Silva</h3>
+              <a
+                href="https://exemplo.com/avaliacao1"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Acessar Avaliação
+              </a>
+            </div>
+            <div className="review-card">
+              <img src={review2} alt="Avaliação 2" className="person-avatar" />
+              <h3>Maria Clara</h3>
+              <a
+                href="https://exemplo.com/avaliacao2"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Acessar Avaliação
+              </a>
+            </div>
+            <div className="review-card">
+              <img src={review3} alt="Avaliação 3" className="person-avatar" />
+              <h3>Pedro Almeida</h3>
+              <a
+                href="https://exemplo.com/avaliacao3"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Acessar Avaliação
+              </a>
+            </div>
+            <div className="review-card">
+              <img src={review4} alt="Avaliação 4" className="person-avatar" />
+              <h3>Ana Beatriz</h3>
+              <a
+                href="https://exemplo.com/avaliacao4"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Acessar Avaliação
+              </a>
+            </div>
+            <div className="review-card">
+              <img src={review5} alt="Avaliação 5" className="person-avatar" />
+              <h3>Carlos Mendes</h3>
+              <a
+                href="https://exemplo.com/avaliacao5"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Acessar Avaliação
+              </a>
+            </div>
+          </div>
+        </section>
+      </FadeInWhenVisible>
+
+      {/* Seção do Feed do Instagram */}
+      <FadeInWhenVisible>
+        <section id="instagram-feed" className="instagram-section">
+          <h2>Feed do Instagram</h2>
+          <div style={{ width: "100%", overflow: "hidden" }}>
+            <iframe
+              title="Instagram Feed"
+              src="//lightwidget.com/widgets/9afbc8a9615b5233ac7e50109716a16f.html"
+              scrolling="no"
+              allowTransparency="true"
+              style={{
+                width: "60%",
+                border: "0",
+                overflow: "hidden",
+                height: "600px", // Ajuste a altura conforme necessário
+              }}
+            ></iframe>
           </div>
         </section>
       </FadeInWhenVisible>

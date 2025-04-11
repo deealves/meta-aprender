@@ -285,3 +285,113 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* Seção do Feed do Instagram */
+.instagram-section {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.instagram-section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #243e6e; /* Cor do título */
+}
+
+.instagram-slide {
+  padding: 1rem;
+  text-align: center;
+}
+
+.instagram-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.instagram-slide p {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  color: #555;
+}
+
+/* Estilo personalizado para o carrossel */
+.slick-dots {
+  bottom: -30px;
+}
+
+.slick-dots li button:before {
+  font-size: 10px;
+  color: #243e6e;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #007bff;
+}
+
+/* Seção de Avaliações */
+.reviews-section {
+  padding: 2rem;
+  text-align: center;
+  background-color: #243e6e; /* Fundo azul */
+  color: white; /* Texto branco */
+}
+
+.reviews-section h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: white; /* Título branco */
+}
+
+.review-card {
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo levemente transparente */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+  max-width: 200px; /* Largura máxima para os cards */
+}
+
+.review-card:hover {
+  transform: translateY(-10px);
+}
+
+.person-avatar {
+  width: 80px; /* Tamanho do avatar */
+  height: 80px; /* Altura do avatar */
+  border-radius: 50%; /* Deixa a imagem circular */
+  object-fit: cover; /* Garante que a imagem preencha o círculo sem distorções */
+  margin-bottom: 1rem; /* Espaçamento entre a imagem e o nome */
+}
+
+.review-card h3 {
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  color: white; /* Cor do título do avaliador */
+}
+
+.review-card a {
+  display: inline-block;
+  background-color: #ffcc00;
+  color: #243e6e;
+  padding: 0.7rem 1.5rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.review-card a:hover {
+  background-color: #ffe478; /* Botão muda para amarelo ao passar o mouse */
+  color: #243e6e;
+}
+
+/* Estilização dos cards de avaliações */
+.cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}

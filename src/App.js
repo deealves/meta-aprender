@@ -167,7 +167,7 @@ function App() {
               <img src={review1} alt="Avaliação 1" className="person-avatar" />
               <h3>SAEV</h3>
               <a
-                href="https://exemplo.com/avaliacao1"
+                href="https://drive.google.com/drive/folders/1mUvRCgt1dkuZqC-A356e3K586ORi_KAS?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -178,7 +178,7 @@ function App() {
               <img src={review2} alt="Avaliação 2" className="person-avatar" />
               <h3>CNCA</h3>
               <a
-                href="https://exemplo.com/avaliacao2"
+                href="https://drive.google.com/drive/folders/1cPw58yuDUYiWHm1UdV4KuIrQOc7Mteqd?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -189,7 +189,7 @@ function App() {
               <img src={review3} alt="Avaliação 3" className="person-avatar" />
               <h3>PARC</h3>
               <a
-                href="https://exemplo.com/avaliacao3"
+                href="https://drive.google.com/drive/folders/19xBZp0Jg5lzrRf3GCojYU6d0Xa7ilHsu?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -200,7 +200,7 @@ function App() {
               <img src={review4} alt="Avaliação 4" className="person-avatar" />
               <h3>SIAVE</h3>
               <a
-                href="https://exemplo.com/avaliacao4"
+                href="https://drive.google.com/drive/folders/1_sKHpgekuk0tXoFBlvAkwMG8f3-8v2yl?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -211,7 +211,7 @@ function App() {
               <img src={review5} alt="Avaliação 5" className="person-avatar" />
               <h3>META APRENDER</h3>
               <a
-                href="https://exemplo.com/avaliacao5"
+                href="https://drive.google.com/drive/folders/1_4DLvRrJJML45PCLAD4vdbg0pWPzF5mm?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
               >

@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 import mascotImage from "./assets/mascot.png"; // Importação da imagem
-import logoMeta from "./assets/logo-meta.PNG"; // Importação da logo
+import logoMeta from "./assets/logo-meta.png"; // Importação da logo
 import alfabetiza from "./assets/alfabetiza.png"; // Importação da logo
 import person1 from "./assets/person1.png"; // Importação da imagem do 1º Ano
 import person2 from "./assets/person2.png"; // Importação da imagem do 2º Ano

@@ -345,6 +345,12 @@ body {
   color: white; /* Título branco */
 }
 
+.reviews-section h6 {
+  margin-top: -2rem;
+  margin-bottom: 1rem;
+  color: #ffcc00;
+}
+
 .review-card {
   background-color: rgba(255, 255, 255, 0.1); /* Fundo levemente transparente */
   border-radius: 10px;

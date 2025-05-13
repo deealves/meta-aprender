@@ -359,6 +359,7 @@ body {
   text-align: center;
   transition: transform 0.3s ease;
   max-width: 200px; /* Largura máxima para os cards */
+  min-height: 285px;
 }
 
 .review-card:hover {
@@ -394,10 +395,194 @@ body {
   color: #243e6e;
 }
 
-/* Estilização dos cards de avaliações */
-.cards-container {
+/* Estilização dos cards da seção "Materiais Estruturados" */
+.materials-structured-section .review-card {
+  background-color: rgba(255, 255, 255, 0.1); /* Fundo levemente transparente */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  text-align: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+  min-width: 200px; /* Largura fixa */
+  min-height: 300px; /* Altura fixa */
   display: flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between; /* Espaçamento uniforme entre os elementos */
+}
+
+.materials-structured-section .review-card:hover {
+  transform: translateY(-10px);
+}
+
+.materials-structured-section .person-avatar {
+  width: 80px; /* Tamanho do avatar */
+  height: 80px; /* Altura do avatar */
+  border-radius: 50%; /* Deixa a imagem circular */
+  object-fit: cover; /* Garante que a imagem preencha o círculo sem distorções */
+  margin-bottom: 0rem; /* Espaçamento entre a imagem e o nome */
+}
+
+.materials-structured-section .review-card h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: white; /* Cor do título do avaliador */
+}
+
+/* Estilização do botão (tag <button>) */
+.review-card button {
+  display: inline-block;
+  background-color: #ffcc00; /* Cor azul */
+  color: #243e6e; /* Texto branco */
+  padding: 0.7rem 1.5rem; /* Espaçamento interno */
+  text-decoration: none; /* Remove sublinhado */
+  border: none; /* Remove borda padrão */
+  border-radius: 5px; /* Bordas arredondadas */
+  transition: background-color 0.3s ease; /* Transição suave */
+  cursor: pointer; /* Cursor de clique */
+  font-family: "Poppins", sans-serif; /* Mesma fonte do sistema */
+  font-weight: 500; /* Negrito */
+  font-size: 1rem; /* Tamanho da fonte */
+}
+
+.review-card button:hover {
+  background-color: #ffe478; /* Amarelo ao passar o mouse */
+  color: #243e6e; /* Texto azul */
+}
+
+/* Estilo para o modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+  display: flex;
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  z-index: 1000; /* Garante que o modal fique acima de outros elementos */
+}
+
+.modal-content {
+  background: white;
+  border-radius: 10px;
+  width: 80%; /* Largura relativa */
+  max-width: 800px; /* Largura máxima */
+  max-height: 50vh; /* Altura máxima */
+  overflow-y: auto; /* Permite rolagem se o conteúdo for muito grande */
+  position: relative;
+  padding: 1rem 2rem 2rem; /* Espaçamento interno */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra leve */
+}
+
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 1rem;
+  border-bottom: 1px solid #f0f0f0; /* Linha cinza clarinha abaixo do cabeçalho */
+  display: flex;
+  justify-content: space-between; /* Alinha o título e o botão de fechar */
+  align-items: center;
+  z-index: 10; /* Garante que o cabeçalho fique acima do conteúdo rolável */
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #333;
+  position: absolute; /* Posiciona o botão no canto superior direito */
+  top: 10px;
+  right: 10px;
+}
+
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.tabs button {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #f9f9f9;
+  cursor: pointer;
+  font-family: "Poppins", sans-serif;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.tabs button.active {
+  background: #243e6e;
+  color: white;
+}
+
+.tab-content {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(150px, 1fr)
+  ); /* Grid responsivo */
+  gap: 1rem;
+  padding: 1rem;
+  grid-template-rows: repeat(3, auto); /* Limite de 3 cards por coluna */
+}
+
+.tab-content .card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+  min-width: 150px; /* Largura mínima */
+  min-height: 250px; /* Altura mínima */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Espaçamento uniforme entre os elementos */
+}
+
+.tab-content .card:hover {
+  transform: translateY(-5px);
+}
+
+.tab-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.tab-content h3 {
+  margin-bottom: 0rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.tab-content h6 {
+  font-size: 0.8rem;
+  color: #ff6666;
+}
+
+.tab-content a {
+  display: inline-block;
+  background-color: #243e6e;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.tab-content a:hover {
+  background-color: #ffcc00;
+  color: #243e6e;
 }

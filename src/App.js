@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import mascotImage from "./assets/mascot.png";
 import logoMeta from "./assets/logometa.png";
@@ -9,16 +9,23 @@ import {
   faInstagram,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+import {
+  faUniversalAccess,
+  faArrowRight,
+  faChevronDown,
+  faArrowUp, // Ícone do botão "Voltar ao Topo"
+} from "@fortawesome/free-solid-svg-icons";
+
 import MaterialsSection from "./components/MaterialsSection";
 import ReviewsSection from "./components/ReviewsSection";
 import Modal from "./components/Modal";
 import MaterialsStructured from "./components/MaterialsStructured";
-import data from "./data"; // Importando os dados do arquivo data.js
+import data from "./data";
 
+// Componente de Fade-in (mantido como está)
 function FadeInWhenVisible({ children }) {
-  const ref = React.useRef(null);
-
-  React.useEffect(() => {
+  const ref = useRef(null);
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -29,12 +36,14 @@ function FadeInWhenVisible({ children }) {
       },
       { threshold: 0.2 }
     );
-
     if (ref.current) {
       observer.observe(ref.current);
     }
-
-    return () => observer.disconnect();
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
   }, []);
 
   return (
@@ -46,6 +55,22 @@ function FadeInWhenVisible({ children }) {
 
 function App() {
   const [modalData, setModalData] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("material");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const openModal = (year) => {
     const selectedYearData = data.find((item) => item.year === year);
@@ -58,9 +83,10 @@ function App() {
 
   return (
     <div className="App">
-      {/* Cabeçalho */}
-      <header className="header">
-        <img src={logoMeta} alt="Logo Meta Aprender" className="logo-image" />
+      <header className={`header ${isScrolled ? "scrolled" : ""}`}>
+        <div className="logo-container">
+          <img src={logoMeta} alt="Logo Meta Aprender" className="logo-image" />
+        </div>
         <nav className="nav-menu">
           <ul>
             <li>
@@ -69,22 +95,33 @@ function App() {
             <li>
               <a href="#materiais">Material</a>
             </li>
+            <li>
+              <button
+                className="accessibility-button"
+                aria-label="Opções de Acessibilidade"
+              >
+                <FontAwesomeIcon icon={faUniversalAccess} />
+              </button>
+            </li>
           </ul>
         </nav>
       </header>
 
-      {/* Seção Inicial */}
       <FadeInWhenVisible>
         <section id="inicio" className="hero-section">
           <div className="hero-content">
             <div className="text-content">
-              <h1>O que é o Meta Aprender?</h1>
+              <h1 className="hero-title">O que é o Meta Aprender?</h1>
               <p>
                 O Meta Aprender é uma política pública educacional que o
                 município de Patos aderiu, que trata sobre a aprendizagem das
                 crianças na idade certa, uma ferramenta que auxilia o processo
                 de ensino-aprendizagem dos alunos.
               </p>
+              <button className="cta-button">
+                Saiba Mais
+                <FontAwesomeIcon icon={faArrowRight} className="cta-icon" />
+              </button>
             </div>
             <img
               src={mascotImage}
@@ -95,25 +132,67 @@ function App() {
         </section>
       </FadeInWhenVisible>
 
-      {/* Seção Materiais Estruturados */}
-      <FadeInWhenVisible>
-        <MaterialsStructured openModal={openModal} />
-      </FadeInWhenVisible>
+      <div id="materiais" className="section-toggle-container">
+        <div className="section-toggle-buttons">
+          <button
+            className={`toggle-button ${
+              activeSection === "material" ? "active" : ""
+            }`}
+            onClick={() => setActiveSection("material")}
+          >
+            Material
+          </button>
+          <button
+            className={`toggle-button ${
+              activeSection === "structured" ? "active" : ""
+            }`}
+            onClick={() => setActiveSection("structured")}
+          >
+            Material Estruturado
+          </button>
+          <button
+            className={`toggle-button ${
+              activeSection === "reviews" ? "active" : ""
+            }`}
+            onClick={() => setActiveSection("reviews")}
+          >
+            Avaliações
+          </button>
+        </div>
+      </div>
 
-      {/* Seção Materiais */}
-      <FadeInWhenVisible>
-        <MaterialsSection />
-      </FadeInWhenVisible>
+      <div key={activeSection} className="active-section-content">
+        {activeSection === "material" && (
+          <FadeInWhenVisible>
+            <MaterialsSection />
+          </FadeInWhenVisible>
+        )}
 
-      {/* Seção Avaliações */}
-      <FadeInWhenVisible>
-        <ReviewsSection />
-      </FadeInWhenVisible>
+        {activeSection === "structured" && (
+          <FadeInWhenVisible>
+            <MaterialsStructured openModal={openModal} allMaterials={data} />
+          </FadeInWhenVisible>
+        )}
 
-      {/* Modal */}
+        {activeSection === "reviews" && (
+          <FadeInWhenVisible>
+            <ReviewsSection />
+          </FadeInWhenVisible>
+        )}
+      </div>
+
       {modalData && <Modal data={modalData} onClose={closeModal} />}
 
-      {/* Rodapé */}
+      {isScrolled && (
+        <button
+          className="back-to-top-button"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          aria-label="Voltar ao topo"
+        >
+          <FontAwesomeIcon icon={faArrowUp} />
+        </button>
+      )}
+
       <footer className="footer">
         <FadeInWhenVisible>
           <div className="partners">

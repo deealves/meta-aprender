@@ -1,6 +1,53 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
+/* ==============================================
+  ARQUIVO DE ESTILO PRINCIPAL - App.css
+  ==============================================
+  Versão modernizada com paleta de cores e tipografia atualizadas.
+*/
 
-/* Reset básico */
+/* 1. FONTES E CONFIGURAÇÕES GLOBAIS
+--------------------------------------------- */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@400;600;700&display=swap");
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+/* Paleta de Cores e Variáveis */
+:root {
+  /* Paleta Principal */
+  --fundo-principal: #f7fafc;
+  --azul-escuro: #1e3a8a;
+  --azul-suave: #60a5fa;
+  --amarelo-destaque: #facc15;
+  --cinza-footer: #1f2937;
+
+  /* Cores de Texto */
+  --texto-principal: #1f2937; /* Cinza escuro para texto */
+  --texto-secundario: #4b5563; /* Cinza médio para parágrafos */
+  --texto-branco: #ffffff;
+
+  /* Tipografia */
+  --fonte-principal: "Poppins", "Inter", sans-serif;
+  --tamanho-titulo: 2.5rem;
+  --tamanho-subtitulo: 2rem;
+  --tamanho-paragrafo: 1.1rem;
+
+  /* Efeitos */
+  --sombra-suave: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --transicao-suave: all 0.3s ease-in-out;
+}
+
+/* SMOOTH SCROLL E OFFSET
+-------------------------------------------------- */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Define uma margem no topo do elemento 'materiais' para que o scroll pare antes,
+   deixando espaço para o header fixo e os botões de seleção. Ajuste o valor se necessário. */
+#materiais {
+  scroll-margin-top: 100px;
+}
+
+/* Reset Básico e Estilos Globais */
 * {
   margin: 0;
   padding: 0;
@@ -8,10 +55,12 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
-  line-height: 1.6;
-  background-color: #f9f9f9;
-  color: #333;
+  font-family: var(--fonte-principal);
+  line-height: 1.7;
+  background-color: var(--fundo-principal);
+  color: var(--texto-principal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .App {
@@ -20,106 +69,247 @@ body {
   min-height: 100vh;
 }
 
-/* Cabeçalho */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  color: var(--azul-escuro);
+}
+
+p {
+  color: var(--texto-secundario);
+  font-size: var(--tamanho-paragrafo);
+}
+
+a,
+button {
+  transition: var(--transicao-suave);
+  font-family: var(--fonte-principal);
+}
+
+/* 2. CABEÇALHO (HEADER) - Estilo Modernizado
+--------------------------------------------- */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo-container {
+  /* Animação de fade-in na logo */
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
 .header {
+  position: sticky; /* Deixa o header fixo no topo */
+  top: 0;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: white; /* Fundo branco */
-  color: #333; /* Texto escuro para contraste */
   padding: 1rem 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra leve para separar o cabeçalho */
+  background-color: transparent; /* Começa transparente */
+  transition: background-color 0.4s ease-out, box-shadow 0.4s ease-out; /* Transição suave */
 }
 
-.header .logo {
-  display: flex;
-  align-items: center;
+/* Estilo do header quando a página é rolada */
+.header.scrolled {
+  background-color: var(--texto-branco);
+  box-shadow: var(--sombra-suave);
 }
 
 .logo-image {
-  max-width: 150px; /* Define um tamanho máximo para a logo */
-  height: auto; /* Mantém a proporção */
-  margin-right: 1rem; /* Adiciona um espaçamento à direita da logo */
+  max-width: 150px;
+  height: auto;
 }
 
 .nav-menu ul {
   list-style: none;
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 2rem;
 }
 
 .nav-menu a {
-  color: #243e6e; /* Links em azul */
-  transition: color 0.3s ease, transform 0.3s ease;
+  position: relative; /* Necessário para o sublinhado animado */
+  color: var(--azul-escuro);
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
+  padding-bottom: 5px; /* Espaço para o sublinhado não colar no texto */
 }
 
-.nav-menu a:hover {
-  text-decoration: underline;
-  color: #0056b3; /* Cor mais escura ao passar o mouse */
-  transform: scale(1.1); /* Efeito de zoom leve */
+/* Efeito de sublinhado animado */
+.nav-menu a::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--azul-suave);
+  transform: scaleX(0); /* Começa com largura 0 */
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
 }
 
-/* Seção Inicial */
+.nav-menu a:hover::after {
+  transform: scaleX(1); /* Expande para a largura total no hover */
+  transform-origin: bottom left;
+}
+
+/* Estilo para o botão de acessibilidade */
+.accessibility-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--azul-escuro);
+  font-size: 1.5rem; /* Tamanho do ícone */
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accessibility-button:hover {
+  color: var(--azul-suave);
+  transform: scale(1.1);
+}
+
+/* 3. SEÇÃO HERO - Estilo Modernizado
+--------------------------------------------- */
+@keyframes background-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(60, 165, 250, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(60, 165, 250, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(60, 165, 250, 0);
+  }
+}
+
 .hero-section {
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
-  padding: 0rem 2rem;
-  background-color: white; /* Fundo branco */
-  color: #333; /* Texto escuro */
-  min-height: 100vh; /* Garante que a seção ocupe toda a altura da tela */
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  min-height: 90vh;
+  /* Fundo em degradê animado */
+  background: linear-gradient(160deg, #e9f5ff, var(--fundo-principal), #fbfdff);
+  background-size: 200% 200%;
+  animation: background-pan 15s ease infinite;
 }
 
 .hero-content {
   display: flex;
-  gap: 2rem;
-  max-width: 1200px; /* Limita a largura máxima */
-  margin: 0 auto; /* Centraliza o conteúdo */
-  align-items: center; /* Centraliza verticalmente o texto e a imagem */
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: center;
 }
 
 .text-content {
-  flex: 1; /* Ocupa metade do espaço disponível */
-  text-align: left; /* Alinha o texto à esquerda */
+  flex: 1;
+  text-align: left;
 }
 
+/* Título com gradiente */
+.hero-title {
+  font-size: 3.5rem; /* Aumentado para mais impacto */
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, var(--azul-suave), var(--azul-escuro));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Animação de flutuação na mascote */
 .mascot-image {
-  flex: 1; /* Ocupa metade do espaço disponível */
-  max-width: 500px; /* Define um tamanho máximo para a imagem */
-  height: auto; /* Mantém a proporção */
-  border-radius: 0; /* Remove bordas */
-  box-shadow: none; /* Remove sombra */
+  flex: 1;
+  max-width: 500px;
+  height: auto;
+  animation: float 6s ease-in-out infinite;
 }
 
-.text-content h1 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #243e6e; /* Título em azul */
+/* Estilo do novo botão "Saiba Mais" */
+.cta-button {
+  background-color: var(--azul-escuro);
+  color: var(--texto-branco);
+  border: none;
+  border-radius: 50px; /* Botão em pílula */
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: var(--sombra-suave);
 }
 
-.text-content p {
-  font-size: 1.2rem;
-  color: #555; /* Texto mais suave */
+.cta-button:hover {
+  background-color: var(--azul-suave);
+  color: var(--azul-escuro);
+  animation: pulse 2s infinite; /* Efeito de pulsação no hover */
 }
 
-/* Seção de Materiais */
+.cta-icon {
+  transition: transform 0.3s ease;
+}
+
+.cta-button:hover .cta-icon {
+  transform: translateX(5px);
+}
+
+/* 4. SEÇÃO MATERIAIS (PROFESSORES)
+--------------------------------------------- */
 .materials-section {
-  padding: 2rem;
+  padding: 4rem 2rem;
   text-align: center;
-  background-color: #f9f9f9; /* Fundo cinza claro para contraste */
+  background-color: var(--fundo-principal);
 }
 
 .materials-section h2 {
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: #243e6e; /* Título em azul */
-}
-
-.materials-section h6 {
-  margin-top: -17px;
-  color: #ff6666; /* Título em azul */
+  font-size: var(--tamanho-subtitulo);
+  margin-bottom: 2rem;
 }
 
 .cards-container {
@@ -129,133 +319,236 @@ body {
   flex-wrap: wrap;
 }
 
-/* Estilização dos cards */
 .card {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--texto-branco);
+  border-radius: 12px;
+  box-shadow: var(--sombra-suave);
   padding: 1.5rem;
   text-align: center;
-  transition: transform 0.3s ease;
-  max-width: 200px; /* Largura máxima para os cards */
+  max-width: 220px;
+  transition: var(--transicao-suave);
 }
 
 .card:hover {
   transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .person-avatar {
-  width: 80px; /* Tamanho do avatar */
-  height: 80px; /* Altura do avatar */
-  border-radius: 50%; /* Deixa a imagem circular */
-  object-fit: cover; /* Garante que a imagem preencha o círculo sem distorções */
-  margin-bottom: 1rem; /* Espaçamento entre a imagem e o nome */
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+  border: 4px solid var(--azul-suave);
 }
 
 .card h3 {
+  /* Série */
   font-size: 1rem;
+  font-weight: 400;
   margin-bottom: 1rem;
-  color: #555; /* Cor do título do ano */
+  color: var(--texto-secundario);
 }
 
 .card h4 {
+  /* Nome */
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
-  color: #243e6e; /* Cor do nome */
+  color: var(--azul-escuro);
 }
 
 .card a {
   display: inline-block;
-  background-color: #243e6e;
-  color: white;
+  background-color: var(--azul-escuro);
+  color: var(--texto-branco);
   padding: 0.7rem 1.5rem;
   text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  border-radius: 8px;
+  font-weight: 600;
 }
 
 .card a:hover {
-  background-color: #0056b3;
+  background-color: var(--azul-suave);
 }
 
-/* Rodapé */
+/* 5. SEÇÃO MATERIAIS ESTRUTURADOS E AVALIAÇÕES (Estilos unificados)
+--------------------------------------------- */
+.reviews-section,
+.materials-structured-section {
+  padding: 4rem 2rem;
+  text-align: center;
+  background-color: var(--azul-escuro);
+  color: var(--texto-branco);
+}
+
+.reviews-section h2,
+.materials-structured-section h2 {
+  font-size: var(--tamanho-subtitulo);
+  margin-bottom: 2rem;
+  color: var(--texto-branco);
+}
+
+.review-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  max-width: 220px;
+  min-height: 285px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.review-card:hover {
+  transform: translateY(-10px);
+}
+
+.review-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--texto-branco);
+  font-weight: 600;
+}
+
+.review-card a,
+.review-card button {
+  display: inline-block;
+  background-color: var(--amarelo-destaque);
+  color: var(--azul-escuro);
+  padding: 0.8rem 1.8rem;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.review-card a:hover,
+.review-card button:hover {
+  background-color: var(--texto-branco);
+  color: var(--azul-escuro);
+  transform: scale(1.05);
+}
+
+/* 6. RODAPÉ (FOOTER)
+--------------------------------------------- */
 .footer {
-  background-color: #333;
-  color: white;
-  padding: 2rem;
+  background-color: var(--cinza-footer);
+  color: var(--texto-branco);
+  padding: 3rem 2rem;
   text-align: center;
 }
 
 .partners h3,
 .social-media h3 {
   font-size: 1.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--texto-branco);
+  font-weight: 600;
 }
 
-/* Estilização dos logos dos parceiros */
 .logos {
   display: flex;
   justify-content: center;
-  gap: 2rem; /* Espaçamento entre as logos */
-  margin-bottom: 2rem;
+  gap: 2rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
 }
 
 .logos img {
-  height: 300px; /* Altura fixa para todas as logos */
-  width: auto; /* Largura automática para manter a proporção */
-  object-fit: contain; /* Garante que a logo não seja distorcida */
-  border-radius: 10px;
+  height: 250px;
+  width: auto;
+  object-fit: contain;
 }
 
 .social-icons {
   display: flex;
   justify-content: center;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 .social-icons a {
-  color: white;
-  font-size: 1.5rem;
-  transition: color 0.3s ease;
+  color: var(--texto-branco);
+  font-size: 1.8rem;
 }
 
 .social-icons a:hover {
-  color: #007bff;
+  color: var(--amarelo-destaque);
+  transform: scale(1.2);
 }
 
-/* Responsividade */
+/* 7. MODAL
+--------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--fundo-principal);
+  border-radius: 12px;
+  width: 80%;
+  max-width: 800px;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: var(--fundo-principal);
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  cursor: pointer;
+  color: var(--texto-secundario);
+  position: absolute;
+  top: 15px;
+  right: 20px;
+}
+
+/* ... (outros estilos do modal que podem ser mantidos e ajustados conforme necessário) */
+
+/* 8. RESPONSIVIDADE
+--------------------------------------------- */
 @media (max-width: 768px) {
-  .hero-section {
-    flex-direction: column; /* Empilha os elementos em telas menores */
-    text-align: center; /* Centraliza o texto */
+  :root {
+    --tamanho-titulo: 2rem;
+    --tamanho-subtitulo: 1.8rem;
   }
 
-  .text-content,
-  .mascot-image {
-    flex: none; /* Desativa o comportamento flexível */
-    width: 100%; /* Faz com que ambos ocupem toda a largura */
-    max-width: 100%; /* Garante que não ultrapassem a largura da tela */
-  }
-
-  .text-content h1 {
-    font-size: 2rem; /* Reduz o tamanho do título para telas menores */
-  }
-
-  .text-content p {
-    font-size: 1rem; /* Reduz o tamanho do parágrafo para telas menores */
-  }
-
-  .mascot-image {
-    max-width: 300px; /* Reduz o tamanho máximo da imagem para telas menores */
-    margin: 0 auto; /* Centraliza a imagem horizontalmente */
-  }
   .hero-content {
     flex-direction: column;
-    gap: 1rem;
+    text-align: center;
+    gap: 2rem;
   }
 
-  .logo-image {
-    max-width: 120px; /* Reduz o tamanho da logo para telas menores */
+  .mascot-image {
+    max-width: 300px;
+    margin-top: 2rem;
   }
 
   .cards-container {
@@ -264,325 +557,629 @@ body {
   }
 
   .logos {
-    flex-direction: column; /* Empilha as logos em telas menores */
-    align-items: center; /* Centraliza as logos verticalmente */
+    flex-direction: column;
+    align-items: center;
   }
 
   .logos img {
-    height: 200px; /* Altura fixa para todas as logos */
-    width: auto; /* Largura automática para manter a proporção */
+    height: 180px;
   }
 }
 
-/* Animação de fade-in */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 1.9s ease, transform 1.9s ease;
-}
-
-.fade-in.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Seção do Feed do Instagram */
-.instagram-section {
-  padding: 2rem;
-  background-color: #f9f9f9;
-  text-align: center;
-}
-
-.instagram-section h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: #243e6e; /* Cor do título */
-}
-
-.instagram-slide {
-  padding: 1rem;
-  text-align: center;
-}
-
-.instagram-image {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.instagram-slide p {
-  font-size: 1rem;
-  margin-top: 0.5rem;
-  color: #555;
-}
-
-/* Estilo personalizado para o carrossel */
-.slick-dots {
-  bottom: -30px;
-}
-
-.slick-dots li button:before {
-  font-size: 10px;
-  color: #243e6e;
-}
-
-.slick-dots li.slick-active button:before {
-  color: #007bff;
-}
-
-/* Seção de Avaliações */
-.reviews-section {
-  padding: 2rem;
-  text-align: center;
-  background-color: #243e6e; /* Fundo azul */
-  color: white; /* Texto branco */
-}
-
-.reviews-section h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: white; /* Título branco */
-}
-
-.reviews-section h6 {
-  margin-top: -2rem;
-  margin-bottom: 1rem;
-  color: #ffcc00;
-}
-
-.review-card {
-  background-color: rgba(255, 255, 255, 0.1); /* Fundo levemente transparente */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 1.5rem;
-  text-align: center;
-  transition: transform 0.3s ease;
-  max-width: 200px; /* Largura máxima para os cards */
-  min-height: 285px;
-}
-
-.review-card:hover {
-  transform: translateY(-10px);
-}
-
-.person-avatar {
-  width: 80px; /* Tamanho do avatar */
-  height: 80px; /* Altura do avatar */
-  border-radius: 50%; /* Deixa a imagem circular */
-  object-fit: cover; /* Garante que a imagem preencha o círculo sem distorções */
-  margin-bottom: 1rem; /* Espaçamento entre a imagem e o nome */
-}
-
-.review-card h3 {
-  font-size: 1rem;
-  margin-bottom: 2rem;
-  color: white; /* Cor do título do avaliador */
-}
-
-.review-card a {
-  display: inline-block;
-  background-color: #ffcc00;
-  color: #243e6e;
-  padding: 0.7rem 1.5rem;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.review-card a:hover {
-  background-color: #ffe478; /* Botão muda para amarelo ao passar o mouse */
-  color: #243e6e;
-}
-
-/* Estilização dos cards da seção "Materiais Estruturados" */
-.materials-structured-section .review-card {
-  background-color: rgba(255, 255, 255, 0.1); /* Fundo levemente transparente */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 1.5rem;
-  text-align: center;
+/* 9. SELETOR DE SEÇÕES E CONTEÚDO ATIVO
+--------------------------------------------- */
+.section-toggle-container {
+  background-color: var(--fundo-principal);
+  padding: 3rem 2rem 1rem 2rem;
+  display: flex;
+  justify-content: center;
   align-items: center;
-  transition: transform 0.3s ease;
-  min-width: 200px; /* Largura fixa */
-  min-height: 300px; /* Altura fixa */
+}
+
+.section-toggle-buttons {
+  display: flex;
+  gap: 1rem;
+  background-color: var(--texto-branco);
+  border-radius: 50px;
+  padding: 0.5rem;
+  box-shadow: var(--sombra-suave);
+}
+
+.toggle-button {
+  background-color: transparent;
+  border: none;
+  border-radius: 50px;
+  padding: 0.8rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--texto-secundario);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.toggle-button:hover {
+  color: var(--azul-escuro);
+}
+
+.toggle-button.active {
+  background-color: var(--azul-escuro);
+  color: var(--texto-branco);
+  box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3);
+}
+
+/* Container que envolve as seções para dar espaçamento */
+.active-section-content {
+  /* Adiciona um preenchimento superior para não colar nos botões */
+  padding-top: 1rem;
+}
+
+/* 10. TEMA ESCURO E ESTILO DE CARD UNIFICADO (VERSÃO FINALÍSSIMA 2.0)
+----------------------------------------------------------------- */
+
+/* Animação de Fade para transição de seção */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.active-section-content {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Container padronizado para as seções de conteúdo */
+.content-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(175deg, var(--azul-escuro) 0%, #1a317a 100%);
+  transition: background-color 0.4s ease;
+}
+.content-section h2 {
+  text-align: center;
+  font-size: var(--tamanho-subtitulo);
+  margin-bottom: 3rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Títulos das Seções --- */
+#materiais h2,
+#avaliacoes h2 {
+  color: var(--texto-branco);
+}
+
+/* --- O Estilo de Card Mestre e Unificado --- */
+.unified-card {
+  background-color: #2a4a9a; /* O "azulzinho" para os cards de tema escuro */
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 250px;
+  min-height: 390px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Espaçamento uniforme entre os elementos */
+  justify-content: space-between;
+  transition: all 0.3s ease;
 }
 
-.materials-structured-section .review-card:hover {
-  transform: translateY(-10px);
+.unified-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  border-color: var(--amarelo-destaque);
 }
 
-.materials-structured-section .person-avatar {
-  width: 80px; /* Tamanho do avatar */
-  height: 80px; /* Altura do avatar */
-  border-radius: 50%; /* Deixa a imagem circular */
-  object-fit: cover; /* Garante que a imagem preencha o círculo sem distorções */
-  margin-bottom: 0rem; /* Espaçamento entre a imagem e o nome */
-}
-
-.materials-structured-section .review-card h3 {
-  font-size: 1rem;
+/* Unificação das imagens e avatares */
+.unified-card .person-avatar,
+.unified-card img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
   margin-bottom: 1rem;
-  color: white; /* Cor do título do avaliador */
+  border: 3px solid var(--azul-suave);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Estilização do botão (tag <button>) */
-.review-card button {
-  display: inline-block;
-  background-color: #ffcc00; /* Cor azul */
-  color: #243e6e; /* Texto branco */
-  padding: 0.7rem 1.5rem; /* Espaçamento interno */
-  text-decoration: none; /* Remove sublinhado */
-  border: none; /* Remove borda padrão */
-  border-radius: 5px; /* Bordas arredondadas */
-  transition: background-color 0.3s ease; /* Transição suave */
-  cursor: pointer; /* Cursor de clique */
-  font-family: "Poppins", sans-serif; /* Mesma fonte do sistema */
-  font-weight: 500; /* Negrito */
-  font-size: 1rem; /* Tamanho da fonte */
+/* Unificação das fontes dos cards */
+.unified-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.unified-card h4 {
+  font-size: 1rem;
+  color: #a7c5ff;
+  margin-top: 0;
+}
+.unified-card h6 {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
 }
 
-.review-card button:hover {
-  background-color: #ffe478; /* Amarelo ao passar o mouse */
-  color: #243e6e; /* Texto azul */
+/* Unificação dos botões dos cards */
+.unified-card a,
+.unified-card button {
+  display: block;
+  padding: 0.8rem 1.5rem;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+.unified-card a:hover,
+.unified-card button:hover {
+  transform: scale(1.05);
 }
 
-/* Estilo para o modal */
-.modal-overlay {
+/* --- Paletas de Cores Específicas por Seção --- */
+
+/* Seção "Materiais" (Professores) e "Avaliações" (Tema Escuro) */
+#materiais .unified-card h3,
+#avaliacoes .unified-card h3 {
+  color: var(--texto-branco);
+}
+
+#materiais .unified-card h6,
+#avaliacoes .unified-card h6 {
+  color: var(--amarelo-destaque);
+}
+
+#materiais .unified-card a,
+#avaliacoes .unified-card a {
+  background-color: var(--amarelo-destaque);
+  color: var(--azul-escuro);
+  font-size: 13.33px;
+}
+#materiais .unified-card a:hover,
+#avaliacoes .unified-card a:hover {
+  background-color: var(--texto-branco);
+}
+
+/* SEÇÃO "MATERIAIS ESTRUTURADOS" (PALETA INVERTIDA)
+-----------------------------------------------------------------*/
+#materiais-estruturados.content-section {
+  background: linear-gradient(175deg, #fef08a 0%, #facc15 100%);
+}
+
+#materiais-estruturados h2 {
+  color: var(--azul-escuro);
+  text-shadow: none;
+}
+
+#materiais-estruturados .unified-card {
+  /* ✨ AQUI ESTÁ A MUDANÇA FINAL ✨ */
+  background-color: #fff570; /* Tom de amarelo bem claro, em vez de branco */
+  border-color: #fde08a;
+}
+
+#materiais-estruturados .unified-card:hover {
+  border-color: var(--azul-escuro);
+}
+
+#materiais-estruturados .unified-card h3 {
+  color: var(--azul-escuro);
+}
+
+#materiais-estruturados .unified-card img {
+  border-color: var(--azul-escuro);
+  filter: none;
+}
+
+#materiais-estruturados .unified-card button {
+  background-color: var(--azul-escuro);
+  color: var(--texto-branco);
+  border: 2px solid var(--azul-escuro);
+}
+#materiais-estruturados .unified-card button:hover {
+  background-color: var(--amarelo-destaque);
+  color: var(--azul-escuro);
+  border-color: var(--azul-escuro);
+}
+
+/* 11. REFORMULAÇÃO COMPLETA DO MODAL
+-------------------------------------------------- */
+@keyframes modal-fade-in {
+  from {
+    background: rgba(0, 0, 0, 0);
+  }
+  to {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+@keyframes modal-content-swoop {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7); /* Fundo escuro semi-transparente */
+  z-index: 2000;
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
-  z-index: 1000; /* Garante que o modal fique acima de outros elementos */
+  justify-content: center;
+  align-items: center;
+  animation: modal-fade-in 0.4s ease forwards;
 }
 
-.modal-content {
-  background: white;
-  border-radius: 10px;
-  width: 80%; /* Largura relativa */
-  max-width: 800px; /* Largura máxima */
-  max-height: 50vh; /* Altura máxima */
-  overflow-y: auto; /* Permite rolagem se o conteúdo for muito grande */
-  position: relative;
-  padding: 1rem 2rem 2rem; /* Espaçamento interno */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra leve */
+.modal-container {
+  background: var(--fundo-principal);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 900px;
+  height: 85vh;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modal-content-swoop 0.4s ease-out forwards;
 }
 
 .modal-header {
-  position: sticky;
-  top: 0;
-  background: white;
-  padding: 1rem;
-  border-bottom: 1px solid #f0f0f0; /* Linha cinza clarinha abaixo do cabeçalho */
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e2e8f0;
   display: flex;
-  justify-content: space-between; /* Alinha o título e o botão de fechar */
+  justify-content: space-between;
   align-items: center;
-  z-index: 10; /* Garante que o cabeçalho fique acima do conteúdo rolável */
+  flex-shrink: 0;
 }
 
-.modal-header h2 {
+.modal-title {
+  font-size: 1.8rem;
+  color: var(--azul-escuro);
   margin: 0;
-  font-size: 1.5rem;
-  color: #333;
 }
 
-.close-modal {
-  background: none;
+.modal-close-button {
+  background: #e2e8f0;
   border: none;
-  font-size: 2rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.8rem;
+  color: var(--texto-secundario);
   cursor: pointer;
-  color: #333;
-  position: absolute; /* Posiciona o botão no canto superior direito */
-  top: 10px;
-  right: 10px;
-}
-
-.tabs {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.modal-close-button:hover {
+  background: var(--amarelo-destaque);
+  color: var(--azul-escuro);
 }
 
-.tabs button {
-  padding: 0.5rem 1rem;
-  border: none;
-  background: #f9f9f9;
+.modal-body {
+  padding: 1.5rem 2rem;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.modal-tab-button {
+  background: var(--texto-branco);
+  border: 1px solid #e2e8f0;
+  border-radius: 50px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--texto-secundario);
   cursor: pointer;
-  font-family: "Poppins", sans-serif;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
 }
 
-.tabs button.active {
-  background: #243e6e;
-  color: white;
+.modal-tab-button.active {
+  background-color: var(--azul-suave);
+  color: var(--texto-branco);
+  border-color: var(--azul-suave);
 }
 
-.tab-content {
+.modal-tab-content {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(150px, 1fr)
-  ); /* Grid responsivo */
-  gap: 1rem;
-  padding: 1rem;
-  grid-template-rows: repeat(3, auto); /* Limite de 3 cards por coluna */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
 }
 
-.tab-content .card {
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-  text-align: center;
-  transition: transform 0.3s ease;
-  min-width: 150px; /* Largura mínima */
-  min-height: 250px; /* Altura mínima */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Espaçamento uniforme entre os elementos */
+.modal-card {
+  background-color: var(--texto-branco);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
-
-.tab-content .card:hover {
+.modal-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-.tab-content img {
-  width: 100%;
-  height: auto;
-  border-radius: 5px;
-}
-
-.tab-content h3 {
-  margin-bottom: 0rem;
-  font-size: 1rem;
-  color: #333;
-}
-
-.tab-content h6 {
-  font-size: 0.8rem;
-  color: #ff6666;
-}
-
-.tab-content a {
-  display: inline-block;
-  background-color: #243e6e;
-  color: white;
-  padding: 0.5rem 1rem;
+.modal-card-link {
   text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+  color: inherit;
 }
 
-.tab-content a:hover {
-  background-color: #ffcc00;
-  color: #243e6e;
+.modal-card-cover {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-card-body {
+  padding: 1rem;
+}
+
+.modal-card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--azul-escuro);
+  margin-bottom: 0.25rem;
+}
+
+.modal-card-subtitle {
+  font-size: 0.8rem;
+  color: var(--texto-secundario);
+  margin: 0;
+}
+
+/* 12. BOTÃO VOLTAR AO TOPO E NOVO RODAPÉ
+-------------------------------------------------- */
+
+/* Estilo do Botão Voltar ao Topo */
+@keyframes button-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.back-to-top-button {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 1000;
+
+  background-color: var(--amarelo-destaque);
+  color: var(--azul-escuro);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: button-fade-in 0.4s ease;
+  transition: all 0.3s ease;
+}
+
+.back-to-top-button:hover {
+  background-color: var(--azul-escuro);
+  color: var(--amarelo-destaque);
+  transform: scale(1.1);
+}
+
+/* Estilo Modernizado do Rodapé */
+.footer {
+  background-color: var(--cinza-footer);
+  /* Textura sutil adicionada ao fundo */
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: var(--texto-branco);
+  padding: 4rem 2rem 2rem 2rem;
+  text-align: center;
+}
+
+.footer h3 {
+  color: var(--texto-branco);
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.footer .logos img {
+  height: 250px;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 3rem;
+
+  /* Efeito de sombra 3D na ilustração */
+  filter: drop-shadow(0px 10px 15px rgba(0, 0, 0, 0.4));
+  transition: transform 0.3s ease;
+}
+
+.footer .logos img:hover {
+  transform: scale(1.03);
+}
+
+/* Ícones Sociais Redesenhados */
+.footer .social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 2rem; /* Espaçamento maior */
+}
+
+.footer .social-icons a {
+  color: #9ca3af; /* Cor cinza-claro, monocromática */
+  font-size: 2rem; /* Ícones maiores */
+  transition: all 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+  color: var(--texto-branco); /* Fica branco no hover */
+  transform: translateY(-5px); /* Efeito de elevação */
+}
+
+/* 13. AJUSTES FINAIS DE RESPONSIVIDADE
+-------------------------------------------------- */
+
+@media (max-width: 768px) {
+  /* Ajusta os botões de seleção de seção para telas menores */
+  .section-toggle-buttons {
+    flex-wrap: wrap; /* Permite que os botões quebrem para a próxima linha */
+    justify-content: center; /* Centraliza os botões no container */
+    gap: 0.75rem; /* Reduz o espaçamento entre os botões para um visual mais compacto */
+  }
+
+  .toggle-button {
+    /* Opcional: Reduz um pouco o padding interno em telas muito pequenas */
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  /* Ajusta o padding do container dos botões */
+  .section-toggle-container {
+    padding: 2.5rem 1rem; /* Menos padding vertical e horizontal */
+  }
+
+  /* Garante que os cards na versão mobile ocupem uma coluna */
+  .cards-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 14. ESTILOS FINAIS E DEFINITIVOS PARA O CARROSSEL (COM LARGURA MÁXIMA)
+-------------------------------------------------- */
+
+/* O container do carrossel volta a ter largura total */
+.carousel-container {
+  /* max-width e margin foram removidos daqui */
+  padding: 0 40px;
+  max-width: 1500px;
+  margin: 0 auto; /* Centraliza o card no espaço do slide */
+  position: relative;
+}
+
+/* Adiciona espaço para a animação de hover */
+.slick-list {
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+}
+
+/* Adiciona espaçamento lateral entre os cards */
+.slick-slide > div {
+  padding: 0 12px;
+}
+
+/* ✨ 1. CORREÇÃO DE LARGURA DO CARD NO CARROSSEL ✨ */
+.carousel-container .unified-card {
+  max-width: 250px; /* Largura máxima, como solicitado */
+  height: 390px;
+  margin: 0 auto; /* Centraliza o card no espaço do slide */
+  position: relative;
+  padding-bottom: 90px;
+}
+
+/* Corrige o posicionamento do botão */
+.carousel-container .card-footer {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  right: 25px;
+}
+
+.carousel-container .card-body {
+  /* Mantém o corpo do card flexível */
+}
+
+/* --- Estilos das Setas e Pontos --- */
+.slick-prev,
+.slick-next {
+  height: 40px !important;
+  width: 40px !important;
+  z-index: 1;
+  background-color: transparent !important;
+}
+.slick-prev {
+  left: -35px !important;
+} /* Ajuste de posição para não ficar muito longe */
+.slick-next {
+  right: -35px !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: rgba(255, 255, 255, 0.4) !important;
+  font-size: 40px !important;
+  transition: all 0.3s ease;
+}
+.carousel-container:hover .slick-prev:before,
+.carousel-container:hover .slick-next:before {
+  color: var(--texto-branco) !important;
+}
+.slick-disabled {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+.slick-dots li button:before {
+  font-size: 12px;
+  color: var(--azul-suave);
+  opacity: 0.5;
+}
+.slick-dots li.slick-active button:before {
+  color: var(--amarelo-destaque);
+  opacity: 1;
+}
+
+/* 15. ESTILOS PARA CARDS E BOTÕES DESABILITADOS
+-------------------------------------------------- */
+
+/* Estilo para o botão desabilitado */
+.unified-card button:disabled {
+  background-color: #d1d5db !important; /* Um cinza claro */
+  color: #6b7280 !important; /* Um cinza mais escuro para o texto */
+  cursor: not-allowed !important; /* Muda o cursor para indicar que não é clicável */
+  border: none !important;
+}
+
+/* Garante que o efeito hover não se aplique ao botão desabilitado */
+.unified-card button:disabled:hover {
+  transform: none;
+}
+
+/* Deixa o card inteiro com uma aparência mais "apagada" e desativa o hover */
+.disabled-card {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.disabled-card:hover {
+  transform: none !important;
+  border-color: #e2e8f0 !important; /* Evita que a borda mude de cor no hover */
 }

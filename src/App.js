@@ -12,8 +12,8 @@ import {
 import {
   faUniversalAccess,
   faArrowRight,
-  faChevronDown,
-  faArrowUp, // Ícone do botão "Voltar ao Topo"
+  faArrowUp,
+  // O ícone faChevronDown foi REMOVIDO daqui, pois não estava sendo usado.
 } from "@fortawesome/free-solid-svg-icons";
 
 import MaterialsSection from "./components/MaterialsSection";
@@ -22,29 +22,40 @@ import Modal from "./components/Modal";
 import MaterialsStructured from "./components/MaterialsStructured";
 import data from "./data";
 
-// Componente de Fade-in (mantido como está)
+// ✨ COMPONENTE COM A CORREÇÃO DO useEffect ✨
 function FadeInWhenVisible({ children }) {
   const ref = useRef(null);
+
   useEffect(() => {
+    // Copiamos ref.current para uma variável, como recomendado pelo React.
+    const node = ref.current;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add("active");
+            // Opcional: para de observar o elemento uma vez que ele já apareceu.
+            if (node) {
+              observer.unobserve(node);
+            }
           }
         });
       },
       { threshold: 0.2 }
     );
-    if (ref.current) {
-      observer.observe(ref.current);
+
+    if (node) {
+      observer.observe(node);
     }
+
+    // A função de limpeza agora usa a variável 'node'.
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (node) {
+        observer.unobserve(node);
       }
     };
-  }, []);
+  }, []); // O array de dependências vazio está correto aqui.
 
   return (
     <div ref={ref} className="fade-in">
@@ -83,6 +94,7 @@ function App() {
 
   return (
     <div className="App">
+      {/* O resto do seu componente App continua exatamente igual */}
       <header className={`header ${isScrolled ? "scrolled" : ""}`}>
         <div className="logo-container">
           <img src={logoMeta} alt="Logo Meta Aprender" className="logo-image" />
